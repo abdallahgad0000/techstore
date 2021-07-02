@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+@import 'styles/fontawesome/css/fontawesome-all';
+@import 'styles/main_styles';
+
+@import 'styles/cart_responsive';
+@import 'styles/cart_styles';
+@import 'styles/contact_responsive';
+@import 'styles/contact_styles';
+@import 'styles/product_responsive';
+@import 'styles/product_styles';
+@import 'styles/responsive';
+@import 'styles/shop_responsive';
+@import 'styles/shop_styles';
+
+.product_price{
+  color: #000;
+}
+

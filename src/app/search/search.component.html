@@ -1,0 +1,121 @@
+<!-- Shop -->
+
+<div class="shop">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Shop Sidebar -->
+        <div class="shop_sidebar">
+          <div class="sidebar_section">
+            <div class="sidebar_title">Categories</div>
+            <ul class="sidebar_categories">
+              <li *ngFor="let category of categories">
+                <a routerLink="/category/{{ category.id }}/1"
+                  >{{ category.name }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        <!-- Shop Content -->
+
+        <div class="shop_content">
+          <div class="product_grid">
+            <div class="product_grid_border"></div>
+
+            <!-- Product Item -->
+            <div
+              class="product_item"
+              *ngFor="let product of products['products']"
+            >
+              <a routerLink="/product/{{ product.id }}" class="product-item-a">
+                <div class="product_border"></div>
+                <div
+                  class="
+                    product_image
+                    d-flex
+                    flex-column
+                    align-items-center
+                    justify-content-center
+                  "
+                >
+                  <img src="../../assets/test/{{ product.img }}" alt="" />
+                </div>
+                <div class="product_content">
+                  <div class="product_price">${{ product.price }}</div>
+                  <div class="product_name">
+                    <div>
+                      <a routerLink="/product" tabindex="0">{{
+                        product.name
+                      }}</a>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="product_fav"><i class="fas fa-cart-plus"></i></div>
+            </div>
+            <div class="clr"></div>
+          </div>
+
+          <!-- Shop Page Navigation -->
+        </div>
+        <div class="shop_page_nav d-flex flex-row">
+          <a
+            *ngIf="currentPage > 1"
+            [routerLink]="['/search', word, currentPage * 1 - 1]"
+          >
+            <div
+              class="
+                page_prev
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-center
+              "
+            >
+              <i class="fas fa-chevron-left"></i>
+            </div>
+          </a>
+          <div
+            class="
+              page_prev
+              d-flex
+              flex-column
+              align-items-center
+              justify-content-center
+            "
+            *ngIf="currentPage <= 1"
+            style="opacity: 0; cursor: default"
+          ></div>
+          <ul class="page_nav d-flex flex-row" id="pagesNav">
+            <a
+              *ngFor="let page of products['pages']"
+              [routerLink]="['/search/', word, page]"
+              ><li>{{ page }}</li></a
+            >
+          </ul>
+          <a
+
+            *ngIf="currentPage < lastPage"
+            [routerLink]="['/search/', word, currentPage * 1 + 1]"
+          >
+            <div
+              class="
+                page_prev
+                d-flex
+                flex-column
+                align-items-center
+                justify-content-center
+              "
+            >
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
