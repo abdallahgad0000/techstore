@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-
   constructor(private _HttpClient : HttpClient) { }
   getProduct(id:number):Observable<any>
   {
@@ -19,5 +18,9 @@ export class ApiService {
   getSearch(word:any,page:any = 1):Observable<any>
   {
     return this._HttpClient.get(`http://localhost/techstore/get/getsearch.php?word=${word}&page=${page}`);
+  }
+  getCartHeader():Observable<any>
+  {
+    return this._HttpClient.get(`http://localhost/techstore/get/getcartheader.php`);
   }
 }
