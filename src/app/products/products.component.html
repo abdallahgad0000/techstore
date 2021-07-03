@@ -47,8 +47,10 @@
                   </div>
                 </div>
               </div>
-              <div class="product_fav"><i class="fas fa-cart-plus"></i></div>
               </a>
+              <div class="product_fav" *ngIf="this.checkIfExistInCart(product)" (click)="addToCart(product)"><i class="fas fa-cart-plus"></i></div>
+              <div class="product_fav" *ngIf="!this.checkIfExistInCart(product)" (click)="addToCart(product)"><i class="fas fa-trash" style="color: red;"></i></div>
+
 
             </div>
 

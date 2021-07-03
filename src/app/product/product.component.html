@@ -3,7 +3,6 @@
 <div class="single_product">
   <div class="container">
     <div class="row">
-
       <!-- Images -->
       <!-- <div class="col-lg-2 order-lg-1 order-2">
         <ul class="image_list">
@@ -15,42 +14,82 @@
 
       <!-- Selected Image -->
       <div class="col-lg-6 order-lg-2 order-1">
-        <div class="image_selected"><img src="../../assets/test/{{result.product.prodImg}}" alt=""></div>
+        <div class="image_selected">
+          <img src="../../assets/test/{{ result.product.prodImg }}" alt="" />
+        </div>
       </div>
 
       <!-- Description -->
       <div class="col-lg-6 order-3">
         <div class="product_description">
-          <div class="product_category">{{result.product.catName}}</div>
-          <div class="product_name">{{result.product.prodName}}</div>
-          <div class="product_text"><p>{{result.product.prodDesc}}</p></div>
+          <div class="product_category">{{ result.product.catName }}</div>
+          <div class="product_name">{{ result.product.prodName }}</div>
+          <div class="product_text">
+            <p>{{ result.product.prodDesc }}</p>
+          </div>
           <div class="order_info d-flex flex-row">
-            <form action="#">
-              <div class="clearfix" style="z-index: 1000;">
+            <form>
+              <div class="clearfix" style="z-index: 1000">
+                <div id="toAdd">
+                  <!-- Product Quantity -->
+                  <div class="product_quantity clearfix">
+                    <span>Quantity: </span>
+                    <input
+                      id="quantity_input"
+                      type="text"
+                      pattern="[0-9]*"
+                      value="1"
+                    />
+                    <div class="quantity_buttons">
+                      <div
+                        id="quantity_inc_button"
+                        class="quantity_inc quantity_control"
+                        (click)="increase()"
+                      >
+                        <i class="fas fa-chevron-up"></i>
+                      </div>
+                      <div
+                        id="quantity_dec_button"
+                        class="quantity_dec quantity_control"
+                        (click)="decrease()"
+                      >
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                  </div>
 
-                <!-- Product Quantity -->
-                <div class="product_quantity clearfix">
-                  <span>Quantity: </span>
-                  <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-                  <div class="quantity_buttons">
-                    <div id="quantity_inc_button" class="quantity_inc quantity_control" (click)="increase()"><i class="fas fa-chevron-up"></i></div>
-                    <div id="quantity_dec_button" class="quantity_dec quantity_control" (click)="decrease()"><i class="fas fa-chevron-down"></i></div>
+                  <div class="product_price" id="product_price">
+                    ${{ result.product.prodPrice }}
+                  </div>
+
+                  <div class="button_container">
+                    <button
+                      type="button"
+                      class="button cart_button"
+                      id="cart_button"
+                      (click)="submitForm()"
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
-
-                                  <div class="product_price" id="product_price">${{result.product.prodPrice}}</div>
-
+                <div id="toDelete">
+                  <div class="button_container">
+                    <button
+                      type="button"
+                      class="button cart_button"
+                      id="cart_button"
+                      (click)="submitForm()"
+                    >
+                       delete from Cart
+                    </button>
+                  </div>
+                </div>
               </div>
-
-              <div class="button_container">
-                <button type="button" class="button cart_button">Add to Cart</button>
-              </div>
-
             </form>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
