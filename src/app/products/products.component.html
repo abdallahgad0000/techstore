@@ -1,4 +1,3 @@
-
 <!-- Shop -->
 
 <div class="shop">
@@ -10,8 +9,11 @@
           <div class="sidebar_section">
             <div class="sidebar_title">Categories</div>
             <ul class="sidebar_categories">
-              <li *ngFor="let category of categories"><a routerLink="/category/{{category.id}}/1">{{category.name}}</a></li>
-
+              <li *ngFor="let category of categories">
+                <a routerLink="/category/{{ category.id }}/1">{{
+                  category.name
+                }}</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -21,39 +23,69 @@
         <!-- Shop Content -->
 
         <div class="shop_content">
-          <div class="product_grid">
+          <div class="product_grid position-relative">
+            <!-- Loader -->
+            <div id="preLoaderContainer" *ngIf="unLoaded" class="">
+              <svg
+                class="spinner"
+                width="50px"
+                height="50px"
+                viewBox="0 0 66 66"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  class="path"
+                  fill="none"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  cx="33"
+                  cy="33"
+                  r="30"
+                ></circle>
+              </svg>
+            </div>
             <div class="product_grid_border"></div>
-
             <!-- Product Item -->
             <div class="product_item" *ngFor="let product of posts['products']">
-              <a  routerLink="/product/{{product.id}}">
+              <a routerLink="/product/{{ product.id }}">
                 <div class="product_border"></div>
-              <div
-                class="
-                  product_image
-                  d-flex
-                  flex-column
-                  align-items-center
-                  justify-content-center
-                "
-              >
-                <img src="../../assets/test/{{product.img}}" alt="" />
-              </div>
-              <div class="product_content">
-                <div class="product_price">${{product.price}}</div>
-                <div class="product_name">
-                  <div>
-                    <a routerLink="/product/{{product.id}}" tabindex="0">{{product.name}}</a>
+                <div
+                  class="
+                    product_image
+                    d-flex
+                    flex-column
+                    align-items-center
+                    justify-content-center
+                  "
+                >
+                  <img src="../../assets/test/{{ product.img }}" alt="" />
+                </div>
+                <div class="product_content">
+                  <div class="product_price">${{ product.price }}</div>
+                  <div class="product_name">
+                    <div>
+                      <a routerLink="/product/{{ product.id }}" tabindex="0">{{
+                        product.name
+                      }}</a>
+                    </div>
                   </div>
                 </div>
-              </div>
               </a>
-              <div class="product_fav" *ngIf="this.checkIfExistInCart(product)" (click)="addToCart(product)"><i class="fas fa-cart-plus"></i></div>
-              <div class="product_fav" *ngIf="!this.checkIfExistInCart(product)" (click)="addToCart(product)"><i class="fas fa-trash" style="color: red;"></i></div>
-
-
+              <div
+                class="product_fav"
+                *ngIf="this.checkIfExistInCart(product)"
+                (click)="addToCart(product)"
+              >
+                <i class="fas fa-cart-plus"></i>
+              </div>
+              <div
+                class="product_fav"
+                *ngIf="!this.checkIfExistInCart(product)"
+                (click)="addToCart(product)"
+              >
+                <i class="fas fa-trash" style="color: red"></i>
+              </div>
             </div>
-
 
             <div class="clr"></div>
           </div>
@@ -61,8 +93,24 @@
           <!-- Shop Page Navigation -->
 
           <div class="shop_page_nav d-flex flex-row">
-            <a (click)="nn(page*1-1)" *ngIf="page>1" [routerLink]="['/products',page*1-1]">
+            <a
+              (click)="nn(page * 1 - 1)"
+              *ngIf="page > 1"
+              [routerLink]="['/products', page * 1 - 1]"
+            >
               <div
+                class="
+                  page_prev
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <i class="fas fa-chevron-left"></i>
+              </div>
+            </a>
+            <div
               class="
                 page_prev
                 d-flex
@@ -70,30 +118,34 @@
                 align-items-center
                 justify-content-center
               "
-            >
-              <i class="fas fa-chevron-left"></i>
-            </div>
-            </a>
-              <div class=" page_prev d-flex flex-column align-items-center justify-content-center" *ngIf="page==1" style="opacity: 0;cursor: default;">
-            </div>
+              *ngIf="page == 1"
+              style="opacity: 0; cursor: default"
+            ></div>
             <ul class="page_nav d-flex flex-row" id="pagesNav">
-              <a *ngFor="let page of posts['pages']" [routerLink]="['/products',page]" (click)="nn(page)"><li>{{page}}</li></a>
-
+              <a
+                *ngFor="let page of posts['pages']"
+                [routerLink]="['/products', page]"
+                (click)="nn(page)"
+                ><li>{{ page }}</li></a
+              >
             </ul>
-            <a (click)="nn(page*1+1)" *ngIf="page<lastPage" [routerLink]="['/products',page*1+1]">
-              <div
-              class="
-                page_prev
-                d-flex
-                flex-column
-                align-items-center
-                justify-content-center
-              "
+            <a
+              (click)="nn(page * 1 + 1)"
+              *ngIf="page < lastPage"
+              [routerLink]="['/products', page * 1 + 1]"
             >
-              <i class="fas fa-chevron-right"></i>
-            </div>
+              <div
+                class="
+                  page_prev
+                  d-flex
+                  flex-column
+                  align-items-center
+                  justify-content-center
+                "
+              >
+                <i class="fas fa-chevron-right"></i>
+              </div>
             </a>
-
           </div>
         </div>
       </div>

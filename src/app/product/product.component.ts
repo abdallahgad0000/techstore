@@ -17,6 +17,8 @@ export class ProductComponent implements OnInit {
   quantity = $('#quantity_input').attr('value');
   qty = 1;
   prodPrice:any;
+  unLoaded: boolean = true;
+
   // private _ApiService: any;
   increase() {
     this.qty = this.qty + 1;
@@ -49,6 +51,8 @@ export class ProductComponent implements OnInit {
         this.result = data;
         this.price = data.product.prodPrice;
         this.prodPrice = data.product.prodPrice;
+        $('#preLoaderContainer svg').fadeOut(100)
+        $('#preLoaderContainer').fadeOut(300)
       } else {
         _Router.navigateByUrl('/notfoundpage')
       }

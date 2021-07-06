@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetCategoriesService } from '../get-categories.service';
 import { CartServiceService } from '../cart-service.service';
-
+declare let $:any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -43,6 +43,13 @@ export class HeaderComponent implements OnInit {
     setInterval(()=>{
       this.cartCount = this._CartServiceService.countItems();
       this.totalPrice = this._CartServiceService.totalPrice();
-    },100)
+    },100);
+
+    $('#applicationPreLoader').ready(()=>{
+      setTimeout(()=>{
+        $('#applicationPreLoader').fadeOut();
+        $('body').css({'overflowY':"auto"})
+      },3000)
+    })
   }
 }

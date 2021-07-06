@@ -14,7 +14,8 @@ import { ProductsComponent } from './products/products.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotfoundpageComponent } from './notfoundpage/notfoundpage.component';
-
+import{ BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// NoopAnimationsModule
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { NotfoundpageComponent } from './notfoundpage/notfoundpage.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

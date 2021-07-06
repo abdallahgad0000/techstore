@@ -1,3 +1,5 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<div id="routeContainer" class="route-container position-relative" [@routeAnimation]="getDepth(myOutLet)" >
+<router-outlet #myOutLet="outlet"></router-outlet>
+</div>
 <app-footer></app-footer>

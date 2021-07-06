@@ -17,4 +17,76 @@
 .product_price{
   color: #000;
 }
+.route-container>*{
+  display: block;
+}
 
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+// ------------------------- pre loader -----------------
+
+#preLoaderContainer{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 99999999;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // This is just to center the spinner
+
+// html, body { height: 100%; }
+
+
+
+// Here is where the magic happens
+
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+  animation: rotator $duration linear infinite;
+}
+
+@keyframes rotator {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(270deg); }
+}
+
+.path {
+  stroke-dasharray: $offset;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation:
+    dash $duration ease-in-out infinite,
+    colors ($duration*4) ease-in-out infinite;
+}
+
+@keyframes colors {
+	0% { stroke: #0e8ce4; }
+	25% { stroke: #0e8ce4; }
+	50% { stroke: #0e8ce4; }
+	75% { stroke: #0e8ce4; }
+  100% { stroke: #0e8ce4; }
+}
+
+@keyframes dash {
+ 0% { stroke-dashoffset: $offset; }
+ 50% {
+   stroke-dashoffset: $offset/4;
+   transform:rotate(135deg);
+ }
+ 100% {
+   stroke-dashoffset: $offset;
+   transform:rotate(450deg);
+ }
+}
+
+}

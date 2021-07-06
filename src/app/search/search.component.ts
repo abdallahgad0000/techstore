@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
   lastPage:any;
   test:ApiService;
   currentPage:any;
+  unLoaded: boolean = true;
+
   constructor( _GetCategoriesService : GetCategoriesService,_Router:Router,_ActivatedRoute:ActivatedRoute ,_ApiService:ApiService) {
     _GetCategoriesService.getTest().subscribe((data) => {
       this.categories = data;
@@ -26,7 +28,9 @@ export class SearchComponent implements OnInit {
 
 
     // this.word = _ActivatedRoute.snapshot.paramMap.get("word");
-    _ActivatedRoute.paramMap.subscribe((data)=>{this.word = data['params'].word})
+    _ActivatedRoute.paramMap.subscribe((data)=>{
+      this.word = data['params'].word
+    })
     // _ApiService.getSearch(this.word).subscribe((data)=>{
     //   this.products = data;
     //   this.lastPage = data['pages'].length;
@@ -38,6 +42,8 @@ export class SearchComponent implements OnInit {
         this.products = data;
         this.lastPage = data['pages'].length;
         this.currentPage = 1;
+        $('#preLoaderContainer svg').fadeOut(100)
+        $('#preLoaderContainer').fadeOut(300)
         } else {
           _Router.navigateByUrl('/notfoundpage')
         }
@@ -52,6 +58,8 @@ export class SearchComponent implements OnInit {
 
       }
       if(event instanceof NavigationEnd) {
+        $('#preLoaderContainer svg').fadeIn(1)
+        $('#preLoaderContainer').fadeIn(1)
 
           this.word = _ActivatedRoute.snapshot.paramMap.get("word");
           this.currentPage = _ActivatedRoute.snapshot.paramMap.get("page")
@@ -61,6 +69,8 @@ export class SearchComponent implements OnInit {
               this.products = data;
               this.lastPage = data['pages'].length;
               this.currentPage = 1;
+              $('#preLoaderContainer svg').fadeOut(100)
+              $('#preLoaderContainer').fadeOut(300)
               } else {
                 _Router.navigateByUrl('/notfoundpage')
               }

@@ -1,7 +1,28 @@
 <!-- Single Product -->
 
-<div class="single_product">
+<div class="single_product position-relative">
+  <!-- Loader -->
+  <div id="preLoaderContainer" *ngIf="unLoaded" class=" my-5">
+    <svg
+      class="spinner"
+      width="50px"
+      height="50px"
+      viewBox="0 0 66 66"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        class="path"
+        fill="none"
+        stroke-width="6"
+        stroke-linecap="round"
+        cx="33"
+        cy="33"
+        r="30"
+      ></circle>
+    </svg>
+  </div>
   <div class="container">
+
     <div class="row">
       <!-- Images -->
       <!-- <div class="col-lg-2 order-lg-1 order-2">

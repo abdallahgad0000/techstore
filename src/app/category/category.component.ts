@@ -2,7 +2,7 @@ import { ActivatedRoute ,Router, NavigationStart, NavigationEnd, Event } from '@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { GetCategoriesService } from '../get-categories.service';
-
+declare let $:any;
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -15,6 +15,8 @@ export class CategoryComponent implements OnInit {
   lastPage: any;
   test: ApiService;
   currentCategory: any;
+  unLoaded: boolean = true;
+
   constructor(
     _GetCategoriesService: GetCategoriesService,
     _ApiService: ApiService,
@@ -35,6 +37,8 @@ export class CategoryComponent implements OnInit {
         if (!data.msg){
         this.products = data;
         this.lastPage = data['pages'].length;
+        $('#preLoaderContainer svg').fadeOut(100)
+        $('#preLoaderContainer').fadeOut(300)
         } else {
           _Router.navigateByUrl('/notfoundpage')
         }
@@ -45,6 +49,8 @@ export class CategoryComponent implements OnInit {
 
         }
         if(event instanceof NavigationEnd) {
+          $('#preLoaderContainer svg').fadeIn(1)
+          $('#preLoaderContainer').fadeIn(1)
 
             this.currentCategory = _ActivatedRoute.snapshot.paramMap.get("id");
             this.currentPage = _ActivatedRoute.snapshot.paramMap.get("page")
@@ -54,6 +60,8 @@ export class CategoryComponent implements OnInit {
               if (!data.msg){
                 this.products = data;
                 this.lastPage = data['pages'].length;
+                $('#preLoaderContainer svg').fadeOut(100)
+                $('#preLoaderContainer').fadeOut(300)
                 } else {
                   _Router.navigateByUrl('/notfoundpage')
                 }
