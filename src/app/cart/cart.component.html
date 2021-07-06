@@ -87,7 +87,7 @@
                   class="contact_form_name input_field"
                   placeholder="Your name"
                 />
-                <span class="fa fa-check check-icon"></span>
+                <span class="fa fa-check check-icon" id="checkIconName"></span>
                 <div class="validate-alert" id="validateAlertName">
                   Name Is Required
                   <div class="arrow-div"></div>
@@ -100,8 +100,8 @@
                   class="contact_form_email input_field"
                   placeholder="Your email"
                 />
-                <span class="fa fa-check check-icon"></span>
-                <div class="validate-alert" id="validateAlertName">
+                <span class="fa fa-check check-icon" id="checkIconEmail"></span>
+                <div class="validate-alert" id="validateAlertEmail">
                   Enter a Valid Email
                   <div class="arrow-div"></div>
                 </div>
@@ -113,8 +113,8 @@
                   class="contact_form_phone input_field"
                   placeholder="Your phone number"
                 />
-                <span class="fa fa-check check-icon"></span>
-                <div class="validate-alert" id="validateAlertName">
+                <span class="fa fa-check check-icon" id="checkIconPhone"></span>
+                <div class="validate-alert" id="validateAlertPhone">
                   Enter a Valid Egyptian Phone Number
                   <div class="arrow-div"></div>
                 </div>
@@ -127,16 +127,16 @@
                 rows="4"
                 placeholder="Your address"
               ></textarea>
-              <span class="fa fa-check check-icon"></span>
+              <span class="fa fa-check check-icon"  id="checkIconAddress"></span>
               <div class="position-relative">
-                <div class="validate-alert textarea-alert" id="validateAlertName">
+                <div class="validate-alert textarea-alert" id="validateAlertAddress">
                   Address Is Required
                   <div class="arrow-div"></div>
                 </div>
               </div>
             </div>
             <div class="contact_form_button">
-              <button type="submit" class="button contact_submit_button">
+              <button type="submit" class="button contact_submit_button" (click)="validateInputs()">
                 Submit Order
               </button>
             </div>
@@ -146,4 +146,44 @@
     </div>
   </div>
   <div class="panel"></div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thanks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Your order is submitted
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal error -->
+<div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">alert</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        you must select items first
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

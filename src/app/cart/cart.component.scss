@@ -13,7 +13,7 @@
 
   input {
     width: 100%;
-    padding-right: 25px 35px 25px 25px;
+    padding: 15px 35px 15px 25px;
     // color: rgba(0, 0, 0, 0.87);
     // &:focus{
     //   border-color: #0e8ce4;
@@ -31,7 +31,7 @@
   border-radius: 2px;
   padding: 3px;
   // position: relative;
-  // display: none;
+  display: none;
   .arrow-div {
     width: 10px;
     height: 10px;
@@ -47,11 +47,14 @@
 .check-icon{
   background-color: #0e8ce4;
   color: #fff;
-  font-size: 10px;
-  padding: 5px;
+  font-size: 7px;
+  padding: 4px;
   position:absolute;
-  top:10px;
+  top: 24px;
   right:10px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  visibility: hidden;
 }
 
 .contact_form_message{

@@ -68,4 +68,8 @@ export class CartServiceService {
     }
     return total;
   }
+  public submitCart() {
+    this.cart = [];
+    this.setCart();
+  }
 }
