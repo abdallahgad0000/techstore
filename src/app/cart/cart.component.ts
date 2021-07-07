@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CartServiceService } from '../cart-service.service';
 declare let $:any;
@@ -8,7 +9,7 @@ declare let $:any;
 })
 export class CartComponent implements OnInit {
 
-  constructor(private _CartServiceService : CartServiceService) {
+  constructor(private _CartServiceService : CartServiceService,private _Router:Router) {
 
   }
   cart:any = this._CartServiceService.cart;
@@ -22,14 +23,15 @@ export class CartComponent implements OnInit {
     this.validateEmailInput();
     this.validateEmailPhone();
     this.validateEmailAddress();
-    if(this._CartServiceService.cart = []) {
-      $('#modalError').modal()
-    } else {
       if(this.validateNameInput() && this.validateEmailInput() && this.validateEmailPhone() && this.validateEmailAddress()){
-        this._CartServiceService.submitCart();
-        $('#exampleModal').modal()
+        if(this.cart[0]=== undefined) {
+          $('#modalError').modal();
+        } else{
+          this._CartServiceService.submitCart();
+          $('#exampleModal').modal();
+          this.cart=[];
+        }
       }
-    }
   }
   // validate name input
   validateNameInput(){
@@ -90,6 +92,29 @@ export class CartComponent implements OnInit {
       return false;
     }
   }
+  goToHome(){
+    this._Router.navigateByUrl('/home');
+  }
+
+  
+  increase(i){
+    this.cart[i].qty++;
+    this.cart[i].totalPrice=this.cart[i].qty*Number(this.cart[i].prodPrice);
+
+    this._CartServiceService.cart[i].qty=this.cart[i].qty;
+    this._CartServiceService.cart[i].totalPrice=this.cart[i].qty*Number(this.cart[i].prodPrice);
+    this._CartServiceService.setCart();
+  }
+  decrease(i){
+    if(this.cart[i].qty>1){
+      this.cart[i].qty--;
+      this.cart[i].totalPrice=this.cart[i].qty*Number(this.cart[i].prodPrice);
+
+      this._CartServiceService.cart[i].qty=this.cart[i].qty;
+      this._CartServiceService.cart[i].totalPrice=this.cart[i].qty*Number(this.cart[i].prodPrice);
+      this._CartServiceService.setCart();
+    }
+  }
 
 
   
@@ -97,6 +122,21 @@ export class CartComponent implements OnInit {
     setInterval(()=>{
       this.totalPrice = this._CartServiceService.totalPrice();
     },100)
+  }
+  ngAfterViewInit(){
+    $(".quantity_inc").on("click",(element)=>{
+      $(element.target).css({"backgroundColor":"rgba(0, 0, 0, 0.178)"})
+      setTimeout(()=>{
+        $(element.target).css({"backgroundColor":"#fff"})
+      },100)
+    })
+    $(".quantity_dec").on("click",(element)=>{
+      $(element.target).css({"backgroundColor":"rgba(0, 0, 0, 0.178)"})
+      setTimeout(()=>{
+        $(element.target).css({"backgroundColor":"#fff"})
+      },100)
+    })
+
   }
 
 }

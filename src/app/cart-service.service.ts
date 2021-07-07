@@ -43,11 +43,11 @@ export class CartServiceService {
     this.cart.splice(this.deleteIndex, 1);
     this.setCart();
   }
-  private setCart() {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+  public setCart() {
+    localStorage.setItem('techstoreCart', JSON.stringify(this.cart));
   }
   private getCart() {
-    let cart = JSON.parse(localStorage.getItem('cart'));
+    let cart = JSON.parse(localStorage.getItem('techstoreCart'));
     if (cart) {
       return cart;
     } else {

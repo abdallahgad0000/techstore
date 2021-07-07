@@ -4,6 +4,25 @@
 .fa-trash {
   cursor: pointer;
 }
+.cart_quantity_buttons{
+  height: auto;
+  // margin-top: 35px;
+  position: static;
+  display: inline-block;
+  div{
+    height: 17px;
+    position: relative;
+    top: 5px;
+    right: -15px;
+    border: 1px solid rgba(0, 0, 0, 0.178);
+    border-radius: 2px;
+    padding: 2px 3px;
+    margin: 3px;
+    // transform:scale(-60%)
+  }
+}
+
+
 .contact_form_inputs {
   margin-bottom: 0px;
 }
