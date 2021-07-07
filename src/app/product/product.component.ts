@@ -97,4 +97,68 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    
+    $(document).ready(function () {
+      $(".owl-carousel").owlCarousel({
+        // navigation: true,
+    
+        // slideSpeed: 300,
+    
+        // paginationSpeed: 400,
+    
+        // singleItem: true,
+    
+        // pagination: false,
+    
+        // rewindSpeed: 500,
+        margin: 0,
+        nav:false,
+        dots:false,
+        itemElement:"div",
+        center:true,
+        loop: false,
+        items: 1,
+      });
+    });
+    let w =  document.querySelectorAll(".carousel_nav button")
+    
+    function nn(index) {
+      for(let i=0 ;i<w.length;i++){
+        if( i == index ){
+          w[i].classList.add("nav_active");
+        } else {
+          w[i].classList.remove("nav_active");
+        }
+      }  
+        
+    }
+    for(let i=0 ;i<w.length;i++){
+      w[i].addEventListener("click",()=>{
+        // console.log(w[i].nextSibling.nextSibling)
+        $('.owl-carousel').trigger('to.owl.carousel',[i,300]);
+        nn(i)
+    
+      })
+    }  
+    
+    $('.right_button').click(function() {
+      $('.owl-carousel').trigger('next.owl.carousel');
+      let w =  document.querySelector(".nav_active")
+    console.log(w.nextSibling)//previousSibling
+    // w.nextSibling.nextSibling.classList.add("nav_active");
+    // w.nextSibling.previousSibling.classList.remove("nav_active");
+    })
+    
+    $('.left_button').click(function() {
+      $('.owl-carousel').trigger('prev.owl.carousel');
+      let w =  document.querySelector(".nav_active")
+    console.log(w.previousSibling)//previousSibling
+    // w.previousSibling.nextSibling.classList.remove("nav_active");
+    // w.previousSibling.previousSibling.classList.add("nav_active");
+    })
+  }
 }
