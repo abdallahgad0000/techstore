@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   test: Router;
   constructor(
     _GetCategoriesService: GetCategoriesService,
-    _Router: Router,
+    private _Router: Router,
     private _CartServiceService:CartServiceService
   ) {
     _GetCategoriesService.getTest().subscribe((data) => {
@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
   }
   submit() {
     this.test.navigateByUrl(`/search/${this.searchWord}/1`);
+  }
+  goToCart(){
+    this._Router.navigateByUrl("/cart");
   }
 
   ngOnInit() {

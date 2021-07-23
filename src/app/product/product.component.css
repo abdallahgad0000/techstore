@@ -1,1 +1,6 @@
-/* No CSS *//*# sourceMappingURL=product.component.css.map */
+@import url(../../../node_modules/owl.carousel/dist/assets/owl.carousel.min.css);
+.item {
+  display: inline-block;
+  width: 100px;
+}
+/*# sourceMappingURL=product.component.css.map */

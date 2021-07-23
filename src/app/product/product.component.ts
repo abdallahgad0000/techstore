@@ -2,7 +2,12 @@ import { CartServiceService } from './../cart-service.service';
 import { ApiService } from './../api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
+
+import * as $ from 'jquery';
+//  import 'owl.carousel'
+// declare let testOwl:any;
 declare var $: any;
 @Component({
   selector: 'app-product',
@@ -16,8 +21,11 @@ export class ProductComponent implements OnInit {
   price: any;
   quantity = $('#quantity_input').attr('value');
   qty = 1;
-  prodPrice:any;
+  prodPrice: any;
   unLoaded: boolean = true;
+  rightButtonEnabled:boolean = true;
+  leftButtonEnabled:boolean = false;
+
 
   // private _ApiService: any;
   increase() {
@@ -39,30 +47,29 @@ export class ProductComponent implements OnInit {
     private _ApiService: ApiService,
     _ActivatedRoute: ActivatedRoute,
     _Router: Router,
-    private _CartServiceService :CartServiceService
+    private _CartServiceService: CartServiceService
   ) {
     this.id = _ActivatedRoute.snapshot.paramMap.get('id');
     _ApiService.getProduct(this.id).subscribe((data) => {
       if (!data.msg) {
-        if (_CartServiceService.itemExist(data.product)){
-          $('#toAdd').css({'display': "none"});
-          $('#toDelete').css({'display': "block"});
+        if (_CartServiceService.itemExist(data.product)) {
+          $('#toAdd').css({ display: 'none' });
+          $('#toDelete').css({ display: 'block' });
         }
         this.result = data;
         this.price = data.product.prodPrice;
         this.prodPrice = data.product.prodPrice;
-        $('#preLoaderContainer svg').fadeOut(100)
-        $('#preLoaderContainer').fadeOut(300)
+        $('#preLoaderContainer svg').fadeOut(100);
+        $('#preLoaderContainer').fadeOut(300);
       } else {
-        _Router.navigateByUrl('/notfoundpage')
+        _Router.navigateByUrl('/notfoundpage');
       }
     });
     this.test = _ApiService;
   }
 
-
-  submitForm(){
-    let qty = $('#quantity_input').val()
+  submitForm() {
+    let qty = $('#quantity_input').val();
     let prodId = this.result.product.prodId;
     let prodName = this.result.product.prodName;
     let prodImg = this.result.product.prodImg;
@@ -70,95 +77,167 @@ export class ProductComponent implements OnInit {
     let totalPrice = this.result.product.prodPrice;
     let prodDesc = this.result.product.prodDesc;
     let catName = this.result.product.catName;
-    let cartData ={
-      "qty" : qty,
-      "prodId" : prodId,
-      "prodName" : prodName,
-      "prodImg" : prodImg,
-      "prodPrice" : prodPrice,
-      "totalPrice" : totalPrice,
-      "prodDesc" : prodDesc,
-      "catName" : catName,
-      "submit" : "submit"
+    let cartData = {
+      qty: qty,
+      prodId: prodId,
+      prodName: prodName,
+      prodImg: prodImg,
+      prodPrice: prodPrice,
+      totalPrice: totalPrice,
+      prodDesc: prodDesc,
+      catName: catName,
+      submit: 'submit',
     };
 
     let response = this._CartServiceService.setItem(cartData);
-    if (response == "added") {
-      $('#toAdd').css({'display': "none"});
-      $('#toDelete').css({'display': "block"});
+    if (response == 'added') {
+      $('#toAdd').css({ display: 'none' });
+      $('#toDelete').css({ display: 'block' });
     } else {
-      $('#toDelete').css({'display': "none"});
-      $('#toAdd').css({'display': "block"});
+      $('#toDelete').css({ display: 'none' });
+      $('#toAdd').css({ display: 'block' });
     }
-
   }
-
-
 
   ngOnInit() {
+    
   }
 
 
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    
-    $(document).ready(function () {
-      $(".owl-carousel").owlCarousel({
-        // navigation: true,
-    
-        // slideSpeed: 300,
-    
-        // paginationSpeed: 400,
-    
-        // singleItem: true,
-    
-        // pagination: false,
-    
-        // rewindSpeed: 500,
-        margin: 0,
-        nav:false,
-        dots:false,
-        itemElement:"div",
-        center:true,
-        loop: false,
-        items: 1,
-      });
-    });
-    let w =  document.querySelectorAll(".carousel_nav button")
-    
-    function nn(index) {
-      for(let i=0 ;i<w.length;i++){
-        if( i == index ){
-          w[i].classList.add("nav_active");
-        } else {
-          w[i].classList.remove("nav_active");
+  customOptions: any = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: false
+  }
+
+  rightButtonClicked(){
+      // $('.owl-carousel').trigger('next.owl.carousel');
+      let buttonElement = document.querySelector('.nav_active');
+      //  console.log(buttonElement.nextSibling); //previousSibling
+      if (buttonElement.nextSibling) {
+        if (buttonElement.nextSibling.nextSibling) {
+          this.rightButtonEnabled = true;
+        } else{
+          this.rightButtonEnabled = false;
         }
-      }  
-        
-    }
-    for(let i=0 ;i<w.length;i++){
-      w[i].addEventListener("click",()=>{
-        // console.log(w[i].nextSibling.nextSibling)
-        $('.owl-carousel').trigger('to.owl.carousel',[i,300]);
-        nn(i)
-    
-      })
-    }  
-    
-    $('.right_button').click(function() {
-      $('.owl-carousel').trigger('next.owl.carousel');
-      let w =  document.querySelector(".nav_active")
-    console.log(w.nextSibling)//previousSibling
-    // w.nextSibling.nextSibling.classList.add("nav_active");
-    // w.nextSibling.previousSibling.classList.remove("nav_active");
-    })
-    
-    $('.left_button').click(function() {
-      $('.owl-carousel').trigger('prev.owl.carousel');
-      let w =  document.querySelector(".nav_active")
-    console.log(w.previousSibling)//previousSibling
-    // w.previousSibling.nextSibling.classList.remove("nav_active");
-    // w.previousSibling.previousSibling.classList.add("nav_active");
-    })
+        this.leftButtonEnabled = true;
+        this.currentSlide++;
+        $(buttonElement.nextSibling).addClass('nav_active');
+        $(buttonElement).removeClass('nav_active');
+      } 
   }
+
+  leftButtonClicked(){
+      // $('.owl-carousel').trigger('prev.owl.carousel');
+      let buttonElement = document.querySelector('.nav_active');
+      if (buttonElement.previousSibling) {
+        if (buttonElement.previousSibling.previousSibling) {
+          this.leftButtonEnabled = true;
+        } else{
+          this.leftButtonEnabled = false;
+        }
+        this.rightButtonEnabled = true;
+        this.currentSlide--;
+        //  console .log(buttonElement.previousSibling); //previousSibling
+        $(buttonElement.previousSibling).addClass('nav_active');
+        $(buttonElement).removeClass('nav_active');
+      }
+  }
+  currentSlide:number=0;
+  changeCurrentSlide(slideNumber){
+    this.currentSlide = slideNumber;
+  }
+  dragEvent(carousel){
+    // console.log(carousel.slidesOutputData.startPosition)
+    if (carousel.slidesOutputData.startPosition > this.currentSlide ) {
+      this.currentSlide = carousel.slidesOutputData.startPosition;
+      // console.log("next");
+      let buttonElement = document.querySelector('.nav_active');
+      $(buttonElement.nextSibling).addClass('nav_active');
+      $(buttonElement).removeClass('nav_active');
+      if (buttonElement.nextSibling.nextSibling) {
+        this.rightButtonEnabled = true;
+      } else{
+        this.rightButtonEnabled = false;
+      }
+      this.leftButtonEnabled = true;
+
+    } 
+    if(carousel.slidesOutputData.startPosition < this.currentSlide) {
+      // console.log("prev")
+      this.currentSlide = carousel.slidesOutputData.startPosition;
+      let buttonElement = document.querySelector('.nav_active');
+      $(buttonElement.previousSibling).addClass('nav_active');
+      $(buttonElement).removeClass('nav_active');
+      if (buttonElement.previousSibling.previousSibling) {
+        this.leftButtonEnabled = true;
+      } else{
+        this.leftButtonEnabled = false;
+      }
+      this.rightButtonEnabled = true;
+    }
+  }
+
+
+ 
+   ngAfterViewInit(){
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+     
+    
+      let w = document.querySelectorAll('.carousel_nav button');
+
+      function makeActive(index) {
+        for (let i = 0; i < w.length; i++) {
+          if (i == index) {
+            w[i].classList.add('nav_active');
+          } else {
+            w[i].classList.remove('nav_active');
+          }
+        }
+      }
+      for (let i = 0; i < w.length; i++) {
+        w[i].addEventListener('click', () => {
+          //  console.log(w[i].nextSibling)
+          // $('.owl-carousel').trigger('to.owl.carousel', [i, 300]);
+          // owlCar.to('slide-2')
+          makeActive(i);
+          let buttonElement = document.querySelector('.nav_active');
+          if (buttonElement.previousSibling) {
+            this.leftButtonEnabled = true;
+          } else{
+            this.leftButtonEnabled = false;
+          }
+
+          if (buttonElement.nextSibling) {
+            this.rightButtonEnabled = true;
+          } else{
+            this.rightButtonEnabled = false;
+          }
+
+        });
+      }
+
+      
+
+      
+   }
 }

@@ -35,24 +35,22 @@
 
       <!-- Selected Image -->
       <div class="col-lg-6 order-lg-2 order-1">
-        <div class="image_selected">
+        <div class="images">
           <!-- <img src="../../assets/test/{{ result.product.prodImg }}" alt="" /> -->
 
-          <div class=" owl-carousel owl-theme">
-            <div class="carousel_item"><img src="../../assets/test/{{ result.product.prodImg }}"  alt=""></div>
-            <div class="carousel_item"><img src="../../assets/test/images/1.jpg"  alt=""></div>
-            <div class="carousel_item"><img src="../../assets/test/images/2.jpg"  alt=""></div>
-            <div class="carousel_item"><img src="../../assets/test/images/3.jpg"  alt=""></div>
-            <div class="carousel_item"><img src="../../assets/test/images/7.jpg"  alt=""></div>
-            </div>
-          <button class="btn btn-outline-secondary carousel_nav_button right_button"><i class="fas fa-chevron-right"></i></button>
-          <button class="btn btn-outline-secondary carousel_nav_button left_button"><i class="fas fa-chevron-left"></i></button>
+          <div class="h-100 my-owl-carousel">
+            <owl-carousel-o [options]="customOptions" #owlCar (dragging)="dragEvent(owlCar)">
+              <ng-template carouselSlide id="slide-0"> <div class="image-selected"> <img src="../../assets/test/1.jpg"> </div> </ng-template>  
+              <ng-template carouselSlide id="slide-1"> <div class="image-selected"> <img src="../../assets/test/2.jpg"> </div> </ng-template>  
+              <ng-template carouselSlide id="slide-2"> <div class="image-selected"> <img src="../../assets/test/4.jpg"> </div> </ng-template>  
+            </owl-carousel-o>  
+          </div>
+          <button class="btn btn-outline-secondary carousel_nav_button right_button" *ngIf="rightButtonEnabled" (click)="owlCar.next()" (click)="rightButtonClicked()"><i class="fas fa-chevron-right"></i></button>
+          <button class="btn btn-outline-secondary carousel_nav_button left_button"  *ngIf="leftButtonEnabled"  (click)="owlCar.prev()" (click)="leftButtonClicked()"><i class="fas fa-chevron-left"></i></button>
             <div class="carousel_nav">
-            <button type="button" class="btn nav_active"></button>
-            <button type="button" class="btn"></button>
-            <button type="button" class="btn"></button>
-            <button type="button" class="btn"></button>
-            <button type="button" class="btn"></button>
+            <button type="button" class="btn nav_active" (click)="owlCar.to('slide-0')" (click)="changeCurrentSlide(0)"></button>
+            <button type="button" class="btn" (click)="owlCar.to('slide-1')" (click)="changeCurrentSlide(1)"></button>
+            <button type="button" class="btn" (click)="owlCar.to('slide-2')" (click)="changeCurrentSlide(2)"></button>
           </div>
         </div>
       </div>
@@ -108,18 +106,49 @@
                       (click)="submitForm()"
                     >
                       Add to Cart
+                      <i class="fas fa-cart-plus pl-2"></i>
                     </button>
                   </div>
                 </div>
                 <div id="toDelete">
+                  <div class="hidden-div">
+                    <div class="product_quantity clearfix">
+                      <span>Quantity: </span>
+                      <input
+                        id="quantity_input"
+                        type="text"
+                        pattern="[0-9]*"
+                        value="1"
+                      />
+                      <div class="quantity_buttons">
+                        <div
+                          id="quantity_inc_button"
+                          class="quantity_inc quantity_control"
+                        >
+                          <i class="fas fa-chevron-up"></i>
+                        </div>
+                        <div
+                          id="quantity_dec_button"
+                          class="quantity_dec quantity_control"
+                        >
+                          <i class="fas fa-chevron-down"></i>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="product_price" id="product_price">
+                      545
+                    </div>
+                  </div>
                   <div class="button_container">
                     <button
                       type="button"
                       class="button cart_button"
-                      id="cart_button"
+                      id="cart_delete_button"
                       (click)="submitForm()"
                     >
-                       delete from Cart
+                       Delete from Cart
+                      <i class="fa fa-trash pl-2"></i>
                     </button>
                   </div>
                 </div>
@@ -131,20 +160,7 @@
     </div>
   </div>
 </div>
-<!-- <script type="text/javascript">
-//     let quantity_input = document.getElementById("quantity_input");
-// let product_price = document.getElementById("product_price");
-// let qty= 1;
-// function increase(price){
-//     quantity_input.value++;
-//     qty++;
-//     product_price.innerHTML = "$".concat(price*qty);
-// }
-// function decrease(price){
-//     if(qty>1) {
-//         quantity_input.value--;
-//         qty--;
-//         product_price.innerHTML = "$".concat(price*qty);
-//     }
-// }
-</script> -->
+
+
+
+
