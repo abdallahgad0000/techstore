@@ -67,14 +67,29 @@
               <div class="product_content">
                 <div class="product_price">${{product.price}}</div>
                 <div class="product_name">
-                  <div>
-                    <a routerLink="/product/{{product.id}}" tabindex="0">{{product.name}}</a>
+                  <div class="ass">
+                    {{
+                      product.name
+                    }}
                   </div>
                 </div>
               </div>
-              <div class="product_fav"><i class="fas fa-cart-plus"></i></div>
-              </a>
 
+              </a>
+              <div
+                class="product_fav"
+                *ngIf="this.checkIfExistInCart(product)"
+                (click)="addToCart(product)"
+              >
+                <i class="fas fa-cart-plus"></i>
+              </div>
+              <div
+                class="product_fav"
+                *ngIf="!this.checkIfExistInCart(product)"
+                (click)="addToCart(product)"
+              >
+                <i class="fas fa-trash" style="color: rgb(255, 77, 77)"></i>
+              </div>
             </div>
             <div class="clr"></div>
           </div>
@@ -82,7 +97,7 @@
           <!-- Shop Page Navigation -->
 
           <div class="shop_page_nav d-flex flex-row">
-            <a *ngIf="currentPage>1" [routerLink]="['/category',currentCategory,currentPage*1-1]">
+            <a class="nav-arrows" *ngIf="currentPage>1" [routerLink]="['/category',currentCategory,currentPage*1-1]">
               <div
               class="
                 page_prev
@@ -101,7 +116,7 @@
               <a *ngFor="let page of products['pages']" [routerLink]="['/category/',currentCategory,page]"><li>{{page}}</li></a>
 
             </ul>
-            <a *ngIf="currentPage<lastPage" [routerLink]="['/category/',currentCategory,currentPage*1+1]">
+            <a class="nav-arrows" *ngIf="currentPage<lastPage" [routerLink]="['/category/',currentCategory,currentPage*1+1]">
               <div
               class="
                 page_prev

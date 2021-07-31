@@ -34,6 +34,8 @@ export class ProductsComponent implements OnInit {
         this.lastPage = data['pages'].length;
         $('#preLoaderContainer svg').fadeOut(100)
         $('#preLoaderContainer').fadeOut(300)
+        this.makeActive(this.page)
+
       }
     });
     this.test = _TestService;
@@ -53,6 +55,8 @@ export class ProductsComponent implements OnInit {
         this.lastPage = data['pages'].length;
         $('#preLoaderContainer svg').fadeOut(100)
         $('#preLoaderContainer').fadeOut(300)
+        this.makeActive(this.page)
+
       }
     });
     this.page = page;
@@ -86,24 +90,18 @@ export class ProductsComponent implements OnInit {
     }
   };
 
-  ngOnInit() {
-    // $(".product_fav").on("ready",()=>{
-    // if(this._CartServiceService.itemExist(this)){
-    // }
-    //   $(this).css({"color":"red"})
-    // })
-    // setTimeout(()=>{
-    //   console.log(this.posts['pagesCount'])
-    //   let pagesNav = document.getElementById("pagesNav");
-    // let pagesContainer =``;
-    // for(let i=1; i<= this.posts['pagesCount'];i++){
-    //   pagesContainer+=`
-    //   <li ><a routerLink="/products">${i}</a></li>
-    //   `;
-    // }
-    // pagesNav.innerHTML=pagesContainer;
-    // },0)
-    // this.lastPage =
-    //   this.page <= this.posts['pages'][this.posts['pages'].length];
+  makeActive(index:any){
+    for(let i = 0 ; i <= $('#pagesNav').children().length;i++){
+    $($('#pagesNav').children()[i]).css({"backgroundColor":"#fff"})
+    }
+    $($('#pagesNav').children()[index-1]).css({"backgroundColor":"#8b8b8b0c"})
+  }
+
+  ngOnInit() {  }
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+
+      $($('#pagesNav').children()[this.page-1]).css({"backgroundColor":"#8b8b8b0c"})
   }
 }

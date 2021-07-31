@@ -2,6 +2,7 @@ import { ActivatedRoute ,Router, NavigationStart, NavigationEnd, Event } from '@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { GetCategoriesService } from '../get-categories.service';
+import { CartServiceService } from '../cart-service.service';
 declare let $:any;
 @Component({
   selector: 'app-category',
@@ -21,7 +22,8 @@ export class CategoryComponent implements OnInit {
     _GetCategoriesService: GetCategoriesService,
     _ApiService: ApiService,
     _ActivatedRoute: ActivatedRoute,
-    _Router:Router
+    _Router:Router,
+    private _CartServiceService :CartServiceService
   ) {
     _GetCategoriesService.getTest().subscribe((data) => {
       this.categories = data;
@@ -39,6 +41,7 @@ export class CategoryComponent implements OnInit {
         this.lastPage = data['pages'].length;
         $('#preLoaderContainer svg').fadeOut(100)
         $('#preLoaderContainer').fadeOut(300)
+        this.makeActive(this.currentPage)
         } else {
           _Router.navigateByUrl('/notfoundpage')
         }
@@ -62,6 +65,7 @@ export class CategoryComponent implements OnInit {
                 this.lastPage = data['pages'].length;
                 $('#preLoaderContainer svg').fadeOut(100)
                 $('#preLoaderContainer').fadeOut(300)
+                this.makeActive(this.currentPage)
                 } else {
                   _Router.navigateByUrl('/notfoundpage')
                 }
@@ -70,8 +74,48 @@ export class CategoryComponent implements OnInit {
 
         }
       })
+
+
   }
 
 
+  addToCart(item) {
+    let prodId = item.id;
+    let prodImg = item.img;
+    let prodPrice = item.price;
+    let prodName = item.name;
+    let cart = {
+      prodId: prodId,
+      prodImg: prodImg,
+      prodPrice: prodPrice,
+      prodName: prodName,
+      totalPrice: prodPrice,
+      qty: 1,
+    };
+    this._CartServiceService.setItem(cart);
+  }
+  checkIfExistInCart = function (item) {
+    let prodId = item.id;
+
+    let cart = {
+      prodId: prodId,
+      qty: 1,
+    };
+    if (this._CartServiceService.itemExist(cart)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  makeActive(index:any){
+    for(let i = 0 ; i <= $('#pagesNav').children().length;i++){
+    $($('#pagesNav').children()[i]).css({"backgroundColor":"#fff"})
+    }
+    $($('#pagesNav').children()[index-1]).css({"backgroundColor":"#8b8b8b0c"})
+  }
+
   ngOnInit() {}
+
 }
+

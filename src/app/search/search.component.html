@@ -67,16 +67,28 @@
                 <div class="product_content">
                   <div class="product_price">${{ product.price }}</div>
                   <div class="product_name">
-                    <div>
-                      <a routerLink="/product" tabindex="0">{{
+                    <div class="ass">
+                      {{
                         product.name
-                      }}</a>
+                      }}
                     </div>
                   </div>
                 </div>
               </a>
-              <div class="product_fav"><i class="fas fa-cart-plus"></i></div>
+              <div
+              class="product_fav"
+              *ngIf="this.checkIfExistInCart(product)"
+              (click)="addToCart(product)"
+            >
+              <i class="fas fa-cart-plus"></i>
             </div>
+            <div
+              class="product_fav"
+              *ngIf="!this.checkIfExistInCart(product)"
+              (click)="addToCart(product)"
+            >
+              <i class="fas fa-trash" style="color: rgb(255, 77, 77)"></i>
+            </div>            </div>
             <div class="clr"></div>
           </div>
 
@@ -84,6 +96,7 @@
         </div>
         <div class="shop_page_nav d-flex flex-row">
           <a
+            class="nav-arrows"
             *ngIf="currentPage > 1"
             [routerLink]="['/search', word, currentPage * 1 - 1]"
           >
@@ -118,7 +131,7 @@
             >
           </ul>
           <a
-
+            class="nav-arrows"
             *ngIf="currentPage < lastPage"
             [routerLink]="['/search/', word, currentPage * 1 + 1]"
           >

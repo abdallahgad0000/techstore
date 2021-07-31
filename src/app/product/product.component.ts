@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit {
   unLoaded: boolean = true;
   rightButtonEnabled:boolean = true;
   leftButtonEnabled:boolean = false;
-
+  productImgs:any;
 
   // private _ApiService: any;
   increase() {
@@ -65,6 +65,13 @@ export class ProductComponent implements OnInit {
         _Router.navigateByUrl('/notfoundpage');
       }
     });
+    _ApiService.getProductImgs(this.id).subscribe((data)=>{
+      if(!data.msg ) {
+        this.productImgs = data;
+      } else {
+        // _Router.navigateByUrl('/notfoundpage');
+      }
+    })
     this.test = _ApiService;
   }
 
@@ -100,7 +107,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
 
@@ -134,7 +141,7 @@ export class ProductComponent implements OnInit {
       let buttonElement = document.querySelector('.nav_active');
       //  console.log(buttonElement.nextSibling); //previousSibling
       if (buttonElement.nextSibling) {
-        if (buttonElement.nextSibling.nextSibling) {
+        if (buttonElement.nextSibling.nextSibling.textContent == "") {
           this.rightButtonEnabled = true;
         } else{
           this.rightButtonEnabled = false;
@@ -143,7 +150,7 @@ export class ProductComponent implements OnInit {
         this.currentSlide++;
         $(buttonElement.nextSibling).addClass('nav_active');
         $(buttonElement).removeClass('nav_active');
-      } 
+      }
   }
 
   leftButtonClicked(){
@@ -174,14 +181,14 @@ export class ProductComponent implements OnInit {
       let buttonElement = document.querySelector('.nav_active');
       $(buttonElement.nextSibling).addClass('nav_active');
       $(buttonElement).removeClass('nav_active');
-      if (buttonElement.nextSibling.nextSibling) {
+      if (buttonElement.nextSibling.nextSibling.textContent == "") {
         this.rightButtonEnabled = true;
       } else{
         this.rightButtonEnabled = false;
       }
       this.leftButtonEnabled = true;
 
-    } 
+    }
     if(carousel.slidesOutputData.startPosition < this.currentSlide) {
       // console.log("prev")
       this.currentSlide = carousel.slidesOutputData.startPosition;
@@ -197,12 +204,16 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  currentImgSlide(i){
+    return`slide-${i+1}`;
+  }
 
- 
+
+
    ngAfterViewInit(){
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-     
-    
+
+
       let w = document.querySelectorAll('.carousel_nav button');
 
       function makeActive(index) {
@@ -227,7 +238,7 @@ export class ProductComponent implements OnInit {
             this.leftButtonEnabled = false;
           }
 
-          if (buttonElement.nextSibling) {
+          if (buttonElement.nextSibling.textContent == "") {
             this.rightButtonEnabled = true;
           } else{
             this.rightButtonEnabled = false;
@@ -236,8 +247,8 @@ export class ProductComponent implements OnInit {
         });
       }
 
-      
 
-      
+
+
    }
 }

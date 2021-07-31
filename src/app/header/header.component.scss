@@ -17,8 +17,18 @@
 .curser-pointer{
   cursor: pointer;
 }
+.cart{
+  cursor: pointer;
+}
+.logo{
+  svg{
+    // color:#006ab6;
+    width: 150px;
+    height: auto;
+    // transform: translateY(10%);
+  }
+}
 // ----------------------- responsive -------------------
-
 @media only screen and (max-width:575.98px) {
   .logo_container,.wishlist_cart {
     height: 102px;
@@ -46,14 +56,14 @@
   .header_search{
     height: 50px;
   }
-  
+
 }
 @media only screen and (min-width:992px) and (max-width:1199.98px) {
-  
+
   .header_search{
     margin-left: 15px;
   }
-  
+
 }
 
 

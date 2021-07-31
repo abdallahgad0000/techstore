@@ -40,17 +40,15 @@
 
           <div class="h-100 my-owl-carousel">
             <owl-carousel-o [options]="customOptions" #owlCar (dragging)="dragEvent(owlCar)">
-              <ng-template carouselSlide id="slide-0"> <div class="image-selected"> <img src="../../assets/test/1.jpg"> </div> </ng-template>  
-              <ng-template carouselSlide id="slide-1"> <div class="image-selected"> <img src="../../assets/test/2.jpg"> </div> </ng-template>  
-              <ng-template carouselSlide id="slide-2"> <div class="image-selected"> <img src="../../assets/test/4.jpg"> </div> </ng-template>  
-            </owl-carousel-o>  
+              <ng-template carouselSlide id="slide-0"> <div class="image-selected"> <img src="../../assets/images/{{result.product.prodImg}}"> </div> </ng-template>
+              <ng-template *ngFor="let img of this.productImgs.imgs; let i=index" carouselSlide id="slide-{{i+1}}"> <div class="image-selected"> <img src="../../assets/images/{{img.product_img}}"> </div> </ng-template>
+            </owl-carousel-o>
           </div>
           <button class="btn btn-outline-secondary carousel_nav_button right_button" *ngIf="rightButtonEnabled" (click)="owlCar.next()" (click)="rightButtonClicked()"><i class="fas fa-chevron-right"></i></button>
           <button class="btn btn-outline-secondary carousel_nav_button left_button"  *ngIf="leftButtonEnabled"  (click)="owlCar.prev()" (click)="leftButtonClicked()"><i class="fas fa-chevron-left"></i></button>
             <div class="carousel_nav">
             <button type="button" class="btn nav_active" (click)="owlCar.to('slide-0')" (click)="changeCurrentSlide(0)"></button>
-            <button type="button" class="btn" (click)="owlCar.to('slide-1')" (click)="changeCurrentSlide(1)"></button>
-            <button type="button" class="btn" (click)="owlCar.to('slide-2')" (click)="changeCurrentSlide(2)"></button>
+            <button type="button" *ngFor="let img of this.productImgs.imgs; let i=index" class="btn" (click)="owlCar.to(currentImgSlide(i))" (click)="changeCurrentSlide(i+1)"></button>
           </div>
         </div>
       </div>
@@ -135,7 +133,7 @@
                         </div>
                       </div>
                     </div>
-  
+
                     <div class="product_price" id="product_price">
                       545
                     </div>

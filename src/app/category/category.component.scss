@@ -1,8 +1,133 @@
+// .product_item
+// {
+//   float: left;
+// }
+
+// .clr{
+//   clear: both;
+// }
+
 .product_item
 {
-  float: left;
+  // float: left;
+  width: 25% !important;
+  // height: auto !important;
+  // align-content: center;
+  img {
+    max-width: 90%;
+    max-height: 80%;
+  }
+  .ass{
+    // width: 80%;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    // white-space: nowrap;
+    transition: all 200ms ease;
+    text-align: center;
+    width: 100%;
+    height: auto;
+  }
+  .product_name{
+    width: 80% !important;
+    // overflow: auto;
+  }
+  a{
+    // height: auto;
+  }
+  .product_content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+  .product_price{
+    margin-left: 0px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+.product_grid{
+  display: flex;
+  flex-wrap: wrap;
+}
+.shop_sidebar {
+  width: 100%;
+  transform: translateX(3px);
 }
 
 .clr{
   clear: both;
 }
+
+
+// border: solid 1px #e5e5e5;
+#pagesNav{
+   border-right: 0px;
+  a{
+    border-right: solid 1px #e5e5e5;
+    color: #2c2c2cda;
+    transition: all 0.3s;
+    &:hover{
+      color: #0e8ce4;
+      background-color: #8b8b8b0c;
+    }
+  }
+}
+.nav-arrows{
+  transition: all 0.3s;
+  &:hover{
+    color: #0e8ce4;
+    background-color: #8b8b8b0c;
+  }
+}
+
+.shop_page_nav{
+  margin: 80px auto;
+  margin-bottom: 0px;
+  width: 330px;
+}
+
+
+// ----------------------- responsive -------------------
+
+@media only screen and (max-width:575.98px) {
+  .product_item{
+    width: 50% !important;
+  }
+  .page_nav li,.nav-arrows,#pagesNav a,.page_prev, .page_next{
+    width: 35px !important;
+    height: 35px !important;
+  }
+  #pagesNav{
+    height: 35px !important;
+  }
+  .shop_page_nav{
+    width: 240px;
+  }
+}
+@media only screen and (min-width:576px) and (max-width:767.98px) {
+  .product_item{
+    width: 50% !important;
+  }
+}
+@media only screen and (min-width:768px) and (max-width:991.98px) {
+
+}
+@media only screen and (min-width:992px) and (max-width:1199.98px) {
+
+}
+
+@media only screen and (max-width: 1199px) and (min-width:576px) {
+
+}
+@media only screen and  (max-width:991.98px) {
+  .shop_sidebar{
+    display: none;
+  }
+  .shop{
+    padding-top: 0px;
+  }
+}
+

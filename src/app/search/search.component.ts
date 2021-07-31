@@ -2,6 +2,7 @@ import { ActivatedRoute, Router, NavigationStart, NavigationEnd, NavigationError
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { GetCategoriesService } from '../get-categories.service';
+import { CartServiceService } from '../cart-service.service';
 
 declare var $:any;
 
@@ -21,7 +22,7 @@ export class SearchComponent implements OnInit {
   currentPage:any;
   unLoaded: boolean = true;
 
-  constructor( _GetCategoriesService : GetCategoriesService,_Router:Router,_ActivatedRoute:ActivatedRoute ,_ApiService:ApiService) {
+  constructor( _GetCategoriesService : GetCategoriesService,_Router:Router,_ActivatedRoute:ActivatedRoute ,_ApiService:ApiService, private _CartServiceService :CartServiceService ) {
     _GetCategoriesService.getTest().subscribe((data) => {
       this.categories = data;
     });
@@ -44,6 +45,7 @@ export class SearchComponent implements OnInit {
         this.currentPage = 1;
         $('#preLoaderContainer svg').fadeOut(100)
         $('#preLoaderContainer').fadeOut(300)
+        this.makeActive(this.currentPage)
         } else {
           _Router.navigateByUrl('/notfoundpage')
         }
@@ -68,9 +70,9 @@ export class SearchComponent implements OnInit {
             if (!data.msg){
               this.products = data;
               this.lastPage = data['pages'].length;
-              this.currentPage = 1;
               $('#preLoaderContainer svg').fadeOut(100)
               $('#preLoaderContainer').fadeOut(300)
+              this.makeActive(this.currentPage)
               } else {
                 _Router.navigateByUrl('/notfoundpage')
               }
@@ -86,7 +88,40 @@ export class SearchComponent implements OnInit {
     //   .subscribe((data) => (this.products = data));
     // this.currentPage = page;
   }
+  makeActive(index:any){
+    for(let i = 0 ; i <= $('#pagesNav').children().length;i++){
+    $($('#pagesNav').children()[i]).css({"backgroundColor":"#fff"})
+    }
+    $($('#pagesNav').children()[index-1]).css({"backgroundColor":"#8b8b8b0c"})
+  }
+  addToCart(item) {
+    let prodId = item.id;
+    let prodImg = item.img;
+    let prodPrice = item.price;
+    let prodName = item.name;
+    let cart = {
+      prodId: prodId,
+      prodImg: prodImg,
+      prodPrice: prodPrice,
+      prodName: prodName,
+      totalPrice: prodPrice,
+      qty: 1,
+    };
+    this._CartServiceService.setItem(cart);
+  }
+  checkIfExistInCart = function (item) {
+    let prodId = item.id;
 
+    let cart = {
+      prodId: prodId,
+      qty: 1,
+    };
+    if (this._CartServiceService.itemExist(cart)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   ngOnInit() {
 
