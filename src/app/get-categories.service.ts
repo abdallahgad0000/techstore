@@ -13,7 +13,7 @@ export class GetCategoriesService {
   constructor(private _HttpClient : HttpClient) { }
   getTest():Observable<any>
   {
-    return this._HttpClient.get(`http://localhost/techstore/get/getcategories.php`);
+    return this._HttpClient.get(`https://techstoretest1.000webhostapp.com/get/getcategories.php`);
   }
 
 

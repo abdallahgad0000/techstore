@@ -3,6 +3,8 @@ import { ApiService } from './../api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import {Title} from "@angular/platform-browser";
+
 
 
 import * as $ from 'jquery';
@@ -47,8 +49,13 @@ export class ProductComponent implements OnInit {
     private _ApiService: ApiService,
     _ActivatedRoute: ActivatedRoute,
     _Router: Router,
-    private _CartServiceService: CartServiceService
+    private _CartServiceService: CartServiceService,
+    private titleService:Title
   ) {
+
+    this.titleService.setTitle("Techstore | Product");
+
+
     this.id = _ActivatedRoute.snapshot.paramMap.get('id');
     _ApiService.getProduct(this.id).subscribe((data) => {
       if (!data.msg) {

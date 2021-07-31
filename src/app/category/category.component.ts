@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { GetCategoriesService } from '../get-categories.service';
 import { CartServiceService } from '../cart-service.service';
+import {Title} from "@angular/platform-browser";
+
 declare let $:any;
 @Component({
   selector: 'app-category',
@@ -23,8 +25,11 @@ export class CategoryComponent implements OnInit {
     _ApiService: ApiService,
     _ActivatedRoute: ActivatedRoute,
     _Router:Router,
-    private _CartServiceService :CartServiceService
+    private _CartServiceService :CartServiceService,
+    private titleService:Title
   ) {
+    this.titleService.setTitle("Techstore | Category");
+
     _GetCategoriesService.getTest().subscribe((data) => {
       this.categories = data;
     });

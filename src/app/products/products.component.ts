@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../test.service';
 import { GetCategoriesService } from '../get-categories.service';
+import {Title} from "@angular/platform-browser";
+
 declare let $: any;
 
 @Component({
@@ -23,8 +25,13 @@ export class ProductsComponent implements OnInit {
     _ActivatedRoute: ActivatedRoute,
     _GetCategoriesService: GetCategoriesService,
     _Router: Router,
-    private _CartServiceService: CartServiceService
+    private _CartServiceService: CartServiceService,
+    private titleService:Title
   ) {
+
+    this.titleService.setTitle("Techstore | Products");
+
+
     this.page = _ActivatedRoute.snapshot.paramMap.get('page');
     _TestService.getTest(this.page).subscribe((data) => {
       if (!data['products'][0]) {

@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CartServiceService } from '../cart-service.service';
+import {Title} from "@angular/platform-browser";
+
 declare let $:any;
 @Component({
   selector: 'app-cart',
@@ -9,7 +11,8 @@ declare let $:any;
 })
 export class CartComponent implements OnInit {
 
-  constructor(private _CartServiceService : CartServiceService,private _Router:Router) {
+  constructor(private titleService:Title,private _CartServiceService : CartServiceService,private _Router:Router) {
+    this.titleService.setTitle("Techstore | Cart");
 
   }
   cart:any = this._CartServiceService.cart;
@@ -17,7 +20,7 @@ export class CartComponent implements OnInit {
   deleteFromCart(item){
     this._CartServiceService.setItem(item)
   }
-  
+
   validateInputs(){
     this.validateNameInput();
     this.validateEmailInput();
@@ -96,7 +99,7 @@ export class CartComponent implements OnInit {
     this._Router.navigateByUrl('/home');
   }
 
-  
+
   increase(i){
     this.cart[i].qty++;
     this.cart[i].totalPrice=this.cart[i].qty*Number(this.cart[i].prodPrice);
@@ -117,7 +120,7 @@ export class CartComponent implements OnInit {
   }
 
 
-  
+
   ngOnInit() {
     setInterval(()=>{
       this.totalPrice = this._CartServiceService.totalPrice();

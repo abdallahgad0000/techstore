@@ -10,12 +10,12 @@ export class TestService {
   constructor(private _HttpClient : HttpClient) { }
 
   getProduct(){
-    return this._HttpClient.get("http://localhost/techstore/get/getproducts.php");
+    return this._HttpClient.get("https://techstoretest1.000webhostapp.com/get/getproducts.php");
   }
 
   getTest(page:number = 1):Observable<any>
   {
-    return this._HttpClient.get(`http://localhost/techstore/get/getproducts.php?page=${page}`);
+    return this._HttpClient.get(`https://techstoretest1.000webhostapp.com/get/getproducts.php?page=${page}`);
   }
 
 

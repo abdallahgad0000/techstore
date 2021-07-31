@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { GetCategoriesService } from '../get-categories.service';
 import { CartServiceService } from '../cart-service.service';
+import {Title} from "@angular/platform-browser";
 
 declare var $:any;
 
@@ -22,10 +23,12 @@ export class SearchComponent implements OnInit {
   currentPage:any;
   unLoaded: boolean = true;
 
-  constructor( _GetCategoriesService : GetCategoriesService,_Router:Router,_ActivatedRoute:ActivatedRoute ,_ApiService:ApiService, private _CartServiceService :CartServiceService ) {
+  constructor( _GetCategoriesService : GetCategoriesService,_Router:Router,_ActivatedRoute:ActivatedRoute ,_ApiService:ApiService, private _CartServiceService :CartServiceService,private titleService:Title ) {
     _GetCategoriesService.getTest().subscribe((data) => {
       this.categories = data;
     });
+
+    this.titleService.setTitle("Techstore | Search");
 
 
     // this.word = _ActivatedRoute.snapshot.paramMap.get("word");
